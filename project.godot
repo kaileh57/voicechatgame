@@ -11,8 +11,14 @@ config_version=5
 [application]
 
 config/name="Voicechatgame"
+run/main_scene="res://test/node.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+
+[audio]
+
+driver/enable_input=true
+driver/mix_rate=4800
 
 [autoload]
 
