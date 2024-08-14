@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://duf4s5s0ipftt"
+path="res://.godot/imported/Sewer Rats Loop.wav-86704a746b85bc66c5fcdd683ca8f985.sample"
+
+[deps]
+
+source_file="res://addons/OvaniAmbiencePlugin/Ambience Loops/Sewer Rats Loop.wav"
+dest_files=["res://.godot/imported/Sewer Rats Loop.wav-86704a746b85bc66c5fcdd683ca8f985.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

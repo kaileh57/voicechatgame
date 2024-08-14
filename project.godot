@@ -14,12 +14,20 @@ config/name="Voicechatgame"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
+
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=2
 window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/OvaniAmbiencePlugin/plugin.cfg", "res://addons/debug_menu/plugin.cfg")
 
 [input]
 

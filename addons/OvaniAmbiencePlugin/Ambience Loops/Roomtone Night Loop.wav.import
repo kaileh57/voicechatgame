@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dlpj5dnvdtfqr"
+path="res://.godot/imported/Roomtone Night Loop.wav-1caa74924fa4c4e18a344b44a4ed505a.sample"
+
+[deps]
+
+source_file="res://addons/OvaniAmbiencePlugin/Ambience Loops/Roomtone Night Loop.wav"
+dest_files=["res://.godot/imported/Roomtone Night Loop.wav-1caa74924fa4c4e18a344b44a4ed505a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

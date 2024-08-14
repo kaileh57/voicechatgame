@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://ds8wanopdc42d"]
+
+[ext_resource type="Texture2D" uid="uid://ir060lx46lrf" path="res://addons/OvaniAmbiencePlugin/ExampleScene/Materials/Grass.png" id="1_h123f"]
+
+[resource]
+albedo_texture = ExtResource("1_h123f")
+uv1_scale = Vector3(0.26, 0.26, 0.26)
+uv1_triplanar = true
+uv1_world_triplanar = true

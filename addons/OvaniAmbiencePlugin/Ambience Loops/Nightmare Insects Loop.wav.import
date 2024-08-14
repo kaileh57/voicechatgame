@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bn4uyl0ou671i"
+path="res://.godot/imported/Nightmare Insects Loop.wav-12ddefcc8dcd773312910b1a17414187.sample"
+
+[deps]
+
+source_file="res://addons/OvaniAmbiencePlugin/Ambience Loops/Nightmare Insects Loop.wav"
+dest_files=["res://.godot/imported/Nightmare Insects Loop.wav-12ddefcc8dcd773312910b1a17414187.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

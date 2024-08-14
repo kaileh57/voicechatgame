@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://btc44vrmktu7x"
+path="res://.godot/imported/Metal Friction Scrub D.wav-82e27b785b954e008e3b2574fa41b226.sample"
+
+[deps]
+
+source_file="res://addons/OvaniAmbiencePlugin/ExampleScene/Sounds/Metal Friction Scrub D.wav"
+dest_files=["res://.godot/imported/Metal Friction Scrub D.wav-82e27b785b954e008e3b2574fa41b226.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

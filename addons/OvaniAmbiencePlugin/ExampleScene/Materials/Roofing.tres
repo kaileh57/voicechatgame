@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cq11exxa4eak6"]
+
+[ext_resource type="Texture2D" uid="uid://cked4xwkjikqe" path="res://addons/OvaniAmbiencePlugin/ExampleScene/Materials/Roofing.png" id="1_pmcqe"]
+
+[resource]
+albedo_texture = ExtResource("1_pmcqe")
+uv1_scale = Vector3(0.92, 0.92, 0.92)
+uv1_triplanar = true
+uv1_world_triplanar = true

@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bfrlf2pyhbvk8"]
+
+[ext_resource type="Texture2D" uid="uid://ceiuse1oo1jma" path="res://addons/OvaniAmbiencePlugin/ExampleScene/Materials/Wood.png" id="1_kiiqh"]
+
+[resource]
+albedo_texture = ExtResource("1_kiiqh")
+uv1_scale = Vector3(0.26, 0.26, 0.26)
+uv1_triplanar = true
