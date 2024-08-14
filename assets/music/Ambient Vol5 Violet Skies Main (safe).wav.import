@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b8s4us3ernib1"
+path="res://.godot/imported/Ambient Vol5 Violet Skies Main (safe).wav-6f1213cd83c34fa3af26902c10a78c7d.sample"
+
+[deps]
+
+source_file="res://assets/music/Ambient Vol5 Violet Skies Main (safe).wav"
+dest_files=["res://.godot/imported/Ambient Vol5 Violet Skies Main (safe).wav-6f1213cd83c34fa3af26902c10a78c7d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
