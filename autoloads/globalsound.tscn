@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhgqq42xsfhaf"]
+
+[ext_resource type="Script" path="res://autoloads/globalsound.gd" id="1_v7h4b"]
+
+[node name="MusicManager" type="Node"]
+script = ExtResource("1_v7h4b")
+
+[node name="MusicA" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
+[node name="MusicB" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
+[node name="SpookyFX" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
