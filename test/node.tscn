@@ -4,6 +4,9 @@
 
 [node name="Node" type="Node"]
 script = ExtResource("1_8ip1x")
+output_path = NodePath("Output")
 
 [node name="Input" type="AudioStreamPlayer" parent="."]
 bus = &"Record"
+
+[node name="Output" type="AudioStreamPlayer" parent="."]

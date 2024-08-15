@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://boie75jetdkv2"]
+
+[ext_resource type="Script" path="res://test/testmanager.gd" id="1_27x4y"]
+[ext_resource type="PackedScene" uid="uid://bxf2nlcrg8f0d" path="res://test/player.tscn" id="3_xxu28"]
+
+[node name="Scene" type="Node2D"]
+script = ExtResource("1_27x4y")
+player = ExtResource("3_xxu28")
