@@ -5,8 +5,10 @@ var index : int
 var effect : AudioEffectCapture
 var playback : AudioStreamGeneratorPlayback
 @export var outputPath : NodePath
-var inputThreshold = 0.005
+var inputThreshold = 0.02
 var receiveBuffer := PackedFloat32Array()
+
+var fade := 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -42,7 +44,12 @@ func processMic():
 			var value = (sterioData[i].x + sterioData[i].y) / 2
 			maxAmplitude = max(value, maxAmplitude)
 			data[i] = value
+		
 		if maxAmplitude < inputThreshold:
+			fade -= 1
+		else:
+			fade = 40
+		if fade <= 0:
 			return
 		
 		sendData.rpc(data)
@@ -57,6 +64,6 @@ func processVoice():
 		playback.push_frame(Vector2(receiveBuffer[0], receiveBuffer[0]))
 		receiveBuffer.remove_at(0)
 
-@rpc("any_peer", "call_remote", "unreliable_ordered")
+@rpc("any_peer", "call_remote", "unreliable")
 func sendData(data : PackedFloat32Array):
 	receiveBuffer.append_array(data)

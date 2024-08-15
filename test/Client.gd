@@ -28,7 +28,7 @@ func peerDisconnected(id):
 	print("peer disconnected! " + str(id))
 
 func _on_connect_to_server_button_down():
-	peer.create_client("204.48.28.159", 8910)
+	peer.create_client("localhost", 8910)
 	
 	multiplayer.multiplayer_peer = peer
 	
@@ -37,4 +37,5 @@ func _on_connect_to_server_button_down():
 	p.name = str(multiplayer.get_unique_id())
 	p.get_node("AudioManager").setupAudio(multiplayer.get_unique_id())
 	clientConnected = true
+	#AudioServer.set_bus_mute(AudioServer.get_bus_index("Record"), true)
 	pass # Replace with function body.
