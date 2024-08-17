@@ -11,7 +11,6 @@ resonance = 0.0
 db = 3
 
 [resource]
-bus/0/send = &"Voices"
 bus/1/name = &"Music"
 bus/1/solo = false
 bus/1/mute = false
