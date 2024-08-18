@@ -2,7 +2,7 @@ extends Node
 
 var peer = ENetMultiplayerPeer.new()
 @export var playerScene : PackedScene
-var serverIsReady : bool
+var serverIsReady : bool = true
 
 @export var gameSpawnLocation : NodePath
 # Called when the node enters the scene tree for the first time.
@@ -16,7 +16,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if serverIsReady:
 		peer.poll()
 	pass

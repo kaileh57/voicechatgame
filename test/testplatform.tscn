@@ -1,6 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://c0rl32vlyf7iq"]
+[gd_scene load_steps=11 format=3 uid="uid://c0rl32vlyf7iq"]
 
 [ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/character.tscn" id="1_p50i7"]
+[ext_resource type="PackedScene" uid="uid://ch5nid8w2n1xe" path="res://test/audio_manager.tscn" id="2_pltw2"]
+[ext_resource type="Script" path="res://test/Server.gd" id="3_d446i"]
+[ext_resource type="PackedScene" uid="uid://dwjn1gvyut2nn" path="res://test/character.tscn" id="4_h571v"]
+[ext_resource type="Script" path="res://test/Client.gd" id="5_b3uay"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_iek1n"]
 data = PackedVector3Array(-5, 0.5, 5, 5, 0.5, 5, -5, -0.5, 5, 5, 0.5, 5, 5, -0.5, 5, -5, -0.5, 5, 5, 0.5, -5, -5, 0.5, -5, 5, -0.5, -5, -5, 0.5, -5, -5, -0.5, -5, 5, -0.5, -5, 5, 0.5, 5, 5, 0.5, -5, 5, -0.5, 5, 5, 0.5, -5, 5, -0.5, -5, 5, -0.5, 5, -5, 0.5, -5, -5, 0.5, 5, -5, -0.5, -5, -5, 0.5, 5, -5, -0.5, 5, -5, -0.5, -5, 5, 0.5, 5, -5, 0.5, 5, 5, 0.5, -5, -5, 0.5, 5, -5, 0.5, -5, 5, 0.5, -5, -5, -0.5, 5, 5, -0.5, 5, -5, -0.5, -5, 5, -0.5, 5, 5, -0.5, -5, -5, -0.5, -5)
@@ -20,7 +24,28 @@ sky = SubResource("Sky_t2qdi")
 [node name="Testplatform" type="Node3D"]
 
 [node name="Character" parent="." instance=ExtResource("1_p50i7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.08202, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.08202, -1.46428)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Character"]
+autoplay = true
+
+[node name="AudioManager" parent="Character" instance=ExtResource("2_pltw2")]
+outputPath = NodePath("../AudioStreamPlayer3D")
+
+[node name="Character2" parent="." node_paths=PackedStringArray("HEAD", "CAMERA", "HEADBOB_ANIMATION", "JUMP_ANIMATION", "CROUCH_ANIMATION", "COLLISION_MESH") instance=ExtResource("1_p50i7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.08202, 1.29022)
+HEAD = NodePath("../Character/Head")
+CAMERA = NodePath("../Character/Head/Camera")
+HEADBOB_ANIMATION = NodePath("../Character/Head/HeadbobAnimation")
+JUMP_ANIMATION = NodePath("../Character/Head/JumpAnimation")
+CROUCH_ANIMATION = NodePath("../Character/CrouchAnimation")
+COLLISION_MESH = NodePath("../Character/Collision")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Character2"]
+autoplay = true
+
+[node name="AudioManager" parent="Character2" instance=ExtResource("2_pltw2")]
+outputPath = NodePath("../AudioStreamPlayer3D")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.0200176, 0.9998, 0, -0.9998, -0.0200176, 0, 5.62255, 0)
@@ -36,3 +61,33 @@ skeleton = NodePath("../..")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_3f3m7")
+
+[node name="Server" type="Node" parent="."]
+script = ExtResource("3_d446i")
+playerScene = ExtResource("4_h571v")
+gameSpawnLocation = NodePath("../GameSpawnLocation")
+
+[node name="Host" type="Button" parent="Server"]
+offset_left = 953.0
+offset_top = 28.0
+offset_right = 1077.0
+offset_bottom = 73.0
+text = "Host Server"
+metadata/_edit_use_anchors_ = true
+
+[node name="Client" type="Node" parent="."]
+script = ExtResource("5_b3uay")
+playerScene = ExtResource("4_h571v")
+gameSpawnLocation = NodePath("../GameSpawnLocation")
+
+[node name="ConnectToServer" type="Button" parent="Client"]
+offset_left = 37.0
+offset_top = 28.0
+offset_right = 186.0
+offset_bottom = 73.0
+text = "Connect To Server"
+
+[node name="GameSpawnLocation" type="Node" parent="."]
+
+[connection signal="button_down" from="Server/Host" to="Server" method="_on_host_button_down"]
+[connection signal="button_down" from="Client/ConnectToServer" to="Client" method="_on_connect_to_server_button_down"]
