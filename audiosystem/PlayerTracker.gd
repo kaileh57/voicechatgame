@@ -50,6 +50,9 @@ func add_player(node, id):
 	elif p7targ == null:
 		p7targ = node
 		p7.name = str(id)
+	else:
+		return "failed"
+	track_players()
 	
 
 

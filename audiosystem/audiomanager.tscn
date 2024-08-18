@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bq06rig81srmr"]
+[gd_scene load_steps=9 format=3 uid="uid://bq06rig81srmr"]
 
 [ext_resource type="Script" path="res://audiosystem/PlayerTracker.gd" id="1_1hymr"]
+[ext_resource type="Script" path="res://audiosystem/Nearby.gd" id="2_l04sr"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_0vqas"]
 size = Vector3(0.5, 0.5, 0.5)
@@ -13,6 +14,15 @@ clearcoat_roughness = 0.2
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_05gvt"]
 material = SubResource("StandardMaterial3D_phh1w")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8qanx"]
+size = Vector3(6.89111, 6.75586, 10.0764)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3bwbx"]
+size = Vector3(33.6937, 11.59, 28.4002)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j88cp"]
+size = Vector3(84.8946, 45.7054, 48.5971)
 
 [node name="Audiomanager" type="Node3D"]
 
@@ -63,3 +73,59 @@ target_position = Vector3(-8, 8, -10)
 
 [node name="FLD" type="RayCast3D" parent="Head"]
 target_position = Vector3(-8, -8, -10)
+
+[node name="Nearby" type="Node3D" parent="." node_paths=PackedStringArray("reverb_check")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.897314, 0)
+script = ExtResource("2_l04sr")
+reverb_check = NodePath("Reverb")
+
+[node name="Reverb" type="Area3D" parent="Nearby"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.897314, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Nearby/Reverb"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00952148, 1.04627, 0)
+shape = SubResource("BoxShape3D_8qanx")
+
+[node name="Echo" type="Area3D" parent="Nearby"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.897314, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Nearby/Echo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.144958, 3.46332, 0.733002)
+shape = SubResource("BoxShape3D_3bwbx")
+
+[node name="EchoEXT" type="Area3D" parent="Nearby"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.897314, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Nearby/EchoEXT"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.122452, 7.79961, 3.69802)
+shape = SubResource("BoxShape3D_j88cp")
+
+[node name="EchoCancel" type="Area3D" parent="Nearby"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.897314, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Nearby/EchoCancel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00952148, 1.04627, 0.02771)
+shape = SubResource("BoxShape3D_8qanx")
+
+[node name="PlayerSounds" type="Node3D" parent="."]
+
+[node name="P1" type="AudioStreamPlayer3D" parent="PlayerSounds"]
+bus = &"P1"
+
+[node name="P2" type="AudioStreamPlayer3D" parent="PlayerSounds"]
+bus = &"P2"
+
+[node name="P3" type="AudioStreamPlayer3D" parent="PlayerSounds"]
+bus = &"p3"
+
+[node name="P4" type="AudioStreamPlayer3D" parent="PlayerSounds"]
+bus = &"p4"
+
+[node name="P5" type="AudioStreamPlayer3D" parent="PlayerSounds"]
+bus = &"p5"
+
+[node name="P6" type="AudioStreamPlayer3D" parent="PlayerSounds"]
+bus = &"p6"
+
+[node name="P7" type="AudioStreamPlayer3D" parent="PlayerSounds"]
+bus = &"p7"
