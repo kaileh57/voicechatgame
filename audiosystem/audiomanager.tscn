@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://bq06rig81srmr"]
+[gd_scene load_steps=10 format=3 uid="uid://bq06rig81srmr"]
 
 [ext_resource type="Script" path="res://audiosystem/PlayerTracker.gd" id="1_1hymr"]
+[ext_resource type="Script" path="res://audiosystem/AudioManager.gd" id="1_mupea"]
 [ext_resource type="Script" path="res://audiosystem/Nearby.gd" id="2_l04sr"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_0vqas"]
@@ -24,7 +25,9 @@ size = Vector3(33.6937, 11.59, 28.4002)
 [sub_resource type="BoxShape3D" id="BoxShape3D_j88cp"]
 size = Vector3(84.8946, 45.7054, 48.5971)
 
-[node name="Audiomanager" type="Node3D"]
+[node name="AudioManager" type="Node3D" node_paths=PackedStringArray("input")]
+script = ExtResource("1_mupea")
+input = NodePath("Input")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.906465, 0)
@@ -32,13 +35,17 @@ mesh = SubResource("BoxMesh_0vqas")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 
-[node name="PlayerTracker" type="MeshInstance3D" parent="." node_paths=PackedStringArray("p1", "p2", "p3")]
+[node name="PlayerTracker" type="MeshInstance3D" parent="." node_paths=PackedStringArray("p1", "p2", "p3", "p4", "p5", "p6", "p7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_05gvt")
 script = ExtResource("1_1hymr")
 p1 = NodePath("NAME1")
 p2 = NodePath("NAME2")
 p3 = NodePath("NAME3")
+p4 = NodePath("NAME4")
+p5 = NodePath("NAME5")
+p6 = NodePath("NAME6")
+p7 = NodePath("NAME7")
 
 [node name="NAME1" type="RayCast3D" parent="PlayerTracker"]
 
@@ -74,10 +81,13 @@ target_position = Vector3(-8, 8, -10)
 [node name="FLD" type="RayCast3D" parent="Head"]
 target_position = Vector3(-8, -8, -10)
 
-[node name="Nearby" type="Node3D" parent="." node_paths=PackedStringArray("reverb_check")]
+[node name="Nearby" type="Node3D" parent="." node_paths=PackedStringArray("reverb_check", "echo_check", "echoext_check", "echo_cancel_check")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.897314, 0)
 script = ExtResource("2_l04sr")
 reverb_check = NodePath("Reverb")
+echo_check = NodePath("Echo")
+echoext_check = NodePath("EchoEXT")
+echo_cancel_check = NodePath("EchoCancel")
 
 [node name="Reverb" type="Area3D" parent="Nearby"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.897314, 0)
@@ -132,3 +142,6 @@ bus = &"p7"
 
 [node name="Input" type="AudioStreamPlayer" parent="."]
 bus = &"Record"
+
+[node name="OutputPath" type="AudioStreamPlayer" parent="."]
+autoplay = true

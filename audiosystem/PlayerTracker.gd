@@ -88,7 +88,7 @@ func track_players():
 			p7.target_position = p7targ.global_position	
 
 #occurs at 60fps
-func _physics_process(delta):
+func _physics_process(_delta):
 	track_players()
 	fake()
 
