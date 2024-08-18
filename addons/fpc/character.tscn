@@ -4,13 +4,13 @@
 [ext_resource type="Script" path="res://addons/fpc/EditorModule.gd" id="3_v3ckk"]
 [ext_resource type="Script" path="res://addons/fpc/debug.gd" id="3_x1wcc"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kp17n"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kh7at"]
 albedo_color = Color(0.909804, 0.596078, 0, 1)
 clearcoat_enabled = true
 clearcoat_roughness = 0.2
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jw1de"]
-material = SubResource("StandardMaterial3D_kp17n")
+material = SubResource("StandardMaterial3D_kh7at")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uy03j"]
 
@@ -352,6 +352,8 @@ MarginContainer/constants/margin_top = 10
 [sub_resource type="SphereShape3D" id="SphereShape3D_k4wwl"]
 
 [node name="Character" type="CharacterBody3D" node_paths=PackedStringArray("HEAD", "CAMERA", "HEADBOB_ANIMATION", "JUMP_ANIMATION", "CROUCH_ANIMATION", "COLLISION_MESH")]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_0t4e8")
 HEAD = NodePath("Head")
 CAMERA = NodePath("Head/Camera")

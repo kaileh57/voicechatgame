@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=3 uid="uid://bq06rig81srmr"]
+
+[ext_resource type="Script" path="res://audiosystem/PlayerTracker.gd" id="1_1hymr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_0vqas"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_phh1w"]
+transparency = 1
+albedo_color = Color(0.909804, 0.596078, 0, 0.160784)
+clearcoat_enabled = true
+clearcoat_roughness = 0.2
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_05gvt"]
+material = SubResource("StandardMaterial3D_phh1w")
+
+[node name="Audiomanager" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.906465, 0)
+mesh = SubResource("BoxMesh_0vqas")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+
+[node name="PlayerTracker" type="MeshInstance3D" parent="." node_paths=PackedStringArray("p1", "p2", "p3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_05gvt")
+script = ExtResource("1_1hymr")
+p1 = NodePath("NAME1")
+p2 = NodePath("NAME2")
+p3 = NodePath("NAME3")
+
+[node name="NAME1" type="RayCast3D" parent="PlayerTracker"]
+
+[node name="NAME2" type="RayCast3D" parent="PlayerTracker"]
+
+[node name="NAME3" type="RayCast3D" parent="PlayerTracker"]
+
+[node name="NAME4" type="RayCast3D" parent="PlayerTracker"]
+
+[node name="NAME5" type="RayCast3D" parent="PlayerTracker"]
+
+[node name="NAME6" type="RayCast3D" parent="PlayerTracker"]
+
+[node name="NAME7" type="RayCast3D" parent="PlayerTracker"]
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Camera" type="Camera3D" parent="Head"]
+
+[node name="Forward" type="RayCast3D" parent="Head"]
+target_position = Vector3(0, 0, -10)
+
+[node name="FRU" type="RayCast3D" parent="Head"]
+target_position = Vector3(8, 8, -10)
+
+[node name="FRD" type="RayCast3D" parent="Head"]
+target_position = Vector3(8, -8, -10)
+
+[node name="FLU" type="RayCast3D" parent="Head"]
+target_position = Vector3(-8, 8, -10)
+
+[node name="FLD" type="RayCast3D" parent="Head"]
+target_position = Vector3(-8, -8, -10)
