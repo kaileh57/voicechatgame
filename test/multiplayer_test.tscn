@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6rrlirxlkewn"]
+
+[ext_resource type="Script" path="res://test/MultiplayerTest.gd" id="1_f5ugw"]
+[ext_resource type="PackedScene" uid="uid://c3otenyph32m5" path="res://player/player.tscn" id="2_6qc3d"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3iixj"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_e4xdp"]
+data = PackedVector3Array(-5, 0.5, 5, 5, 0.5, 5, -5, -0.5, 5, 5, 0.5, 5, 5, -0.5, 5, -5, -0.5, 5, 5, 0.5, -5, -5, 0.5, -5, 5, -0.5, -5, -5, 0.5, -5, -5, -0.5, -5, 5, -0.5, -5, 5, 0.5, 5, 5, 0.5, -5, 5, -0.5, 5, 5, 0.5, -5, 5, -0.5, -5, 5, -0.5, 5, -5, 0.5, -5, -5, 0.5, 5, -5, -0.5, -5, -5, 0.5, 5, -5, -0.5, 5, -5, -0.5, -5, 5, 0.5, 5, -5, 0.5, 5, 5, 0.5, -5, -5, 0.5, 5, -5, 0.5, -5, 5, 0.5, -5, -5, -0.5, 5, 5, -0.5, 5, -5, -0.5, -5, 5, -0.5, 5, 5, -0.5, -5, -5, -0.5, -5)
+
+[node name="MultiplayerTest" type="Node3D"]
+script = ExtResource("1_f5ugw")
+player_scene = ExtResource("2_6qc3d")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Host" type="Button" parent="CanvasLayer"]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "HOST"
+
+[node name="Join" type="Button" parent="CanvasLayer"]
+offset_left = 421.0
+offset_top = 116.0
+offset_right = 464.0
+offset_bottom = 147.0
+text = "JOIN"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.17938, 0)
+mesh = SubResource("BoxMesh_3iixj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_e4xdp")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.541341, 0.840803, 0, -0.840803, 0.541341, 0, 0, 0)
+shadow_enabled = true
+
+[connection signal="pressed" from="CanvasLayer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="CanvasLayer/Join" to="." method="_on_join_pressed"]

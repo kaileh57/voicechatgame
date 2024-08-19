@@ -79,23 +79,24 @@ var gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity") 
 var mouseInput : Vector2 = Vector2(0,0)
 
 func _ready():
-	#It is safe to comment this line if your game doesn't start with the mouse captured
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	
-	# If the controller is rotated in a certain direction for game design purposes, redirect this rotation into the head.
-	HEAD.rotation.y = rotation.y
-	rotation.y = 0
-	
-	if default_reticle:
-		change_reticle(default_reticle)
-	
-	# Reset the camera position
-	# If you want to change the default head height, change these animations.
-	HEADBOB_ANIMATION.play("RESET")
-	JUMP_ANIMATION.play("RESET")
-	CROUCH_ANIMATION.play("RESET")
-	
-	check_controls()
+	if is_multiplayer_authority():
+		#It is safe to comment this line if your game doesn't start with the mouse captured
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		
+		# If the controller is rotated in a certain direction for game design purposes, redirect this rotation into the head.
+		HEAD.rotation.y = rotation.y
+		rotation.y = 0
+		
+		if default_reticle:
+			change_reticle(default_reticle)
+		
+		# Reset the camera position
+		# If you want to change the default head height, change these animations.
+		HEADBOB_ANIMATION.play("RESET")
+		JUMP_ANIMATION.play("RESET")
+		CROUCH_ANIMATION.play("RESET")
+		
+		check_controls()
 
 func check_controls(): # If you add a control, you might want to add a check for it here.
 	# The actions are being disabled so the engine doesn't halt the entire project in debug mode
@@ -135,52 +136,53 @@ func change_reticle(reticle): # Yup, this function is kinda strange
 
 
 func _physics_process(delta):
-	# Big thanks to github.com/LorenzoAncora for the concept of the improved debug values
-	current_speed = Vector3.ZERO.distance_to(get_real_velocity())
-	$UserInterface/DebugPanel.add_property("Speed", snappedf(current_speed, 0.001), 1)
-	$UserInterface/DebugPanel.add_property("Target speed", speed, 2)
-	var cv : Vector3 = get_real_velocity()
-	var vd : Array[float] = [
-		snappedf(cv.x, 0.001),
-		snappedf(cv.y, 0.001),
-		snappedf(cv.z, 0.001)
-	]
-	var readable_velocity : String = "X: " + str(vd[0]) + " Y: " + str(vd[1]) + " Z: " + str(vd[2])
-	$UserInterface/DebugPanel.add_property("Velocity", readable_velocity, 3)
-	
-	# Gravity
-	#gravity = ProjectSettings.get_setting("physics/3d/default_gravity") # If the gravity changes during your game, uncomment this code
-	if not is_on_floor() and gravity and gravity_enabled:
-		velocity.y -= gravity * delta
-	
-	handle_jumping()
-	
-	var input_dir = Vector2.ZERO
-	if !immobile: # Immobility works by interrupting user input, so other forces can still be applied to the player
-		input_dir = Input.get_vector(LEFT, RIGHT, FORWARD, BACKWARD)
-	handle_movement(delta, input_dir)
+	if is_multiplayer_authority():
+		# Big thanks to github.com/LorenzoAncora for the concept of the improved debug values
+		current_speed = Vector3.ZERO.distance_to(get_real_velocity())
+		$UserInterface/DebugPanel.add_property("Speed", snappedf(current_speed, 0.001), 1)
+		$UserInterface/DebugPanel.add_property("Target speed", speed, 2)
+		var cv : Vector3 = get_real_velocity()
+		var vd : Array[float] = [
+			snappedf(cv.x, 0.001),
+			snappedf(cv.y, 0.001),
+			snappedf(cv.z, 0.001)
+		]
+		var readable_velocity : String = "X: " + str(vd[0]) + " Y: " + str(vd[1]) + " Z: " + str(vd[2])
+		$UserInterface/DebugPanel.add_property("Velocity", readable_velocity, 3)
+		
+		# Gravity
+		#gravity = ProjectSettings.get_setting("physics/3d/default_gravity") # If the gravity changes during your game, uncomment this code
+		if not is_on_floor() and gravity and gravity_enabled:
+			velocity.y -= gravity * delta
+		
+		handle_jumping()
+		
+		var input_dir = Vector2.ZERO
+		if !immobile: # Immobility works by interrupting user input, so other forces can still be applied to the player
+			input_dir = Input.get_vector(LEFT, RIGHT, FORWARD, BACKWARD)
+		handle_movement(delta, input_dir)
 
-	handle_head_rotation()
-	
-	# The player is not able to stand up if the ceiling is too low
-	low_ceiling = $CrouchCeilingDetection.is_colliding()
-	
-	handle_state(input_dir)
-	if dynamic_fov: # This may be changed to an AnimationPlayer
-		update_camera_fov()
-	
-	if view_bobbing:
-		headbob_animation(input_dir)
-	
-	if jump_animation:
-		if !was_on_floor and is_on_floor(): # The player just landed
-			match randi() % 2: #TODO: Change this to detecting velocity direction
-				0:
-					JUMP_ANIMATION.play("land_left", 0.25)
-				1:
-					JUMP_ANIMATION.play("land_right", 0.25)
-	
-	was_on_floor = is_on_floor() # This must always be at the end of physics_process
+		handle_head_rotation()
+		
+		# The player is not able to stand up if the ceiling is too low
+		low_ceiling = $CrouchCeilingDetection.is_colliding()
+		
+		handle_state(input_dir)
+		if dynamic_fov: # This may be changed to an AnimationPlayer
+			update_camera_fov()
+		
+		if view_bobbing:
+			headbob_animation(input_dir)
+		
+		if jump_animation:
+			if !was_on_floor and is_on_floor(): # The player just landed
+				match randi() % 2: #TODO: Change this to detecting velocity direction
+					0:
+						JUMP_ANIMATION.play("land_left", 0.25)
+					1:
+						JUMP_ANIMATION.play("land_right", 0.25)
+		
+		was_on_floor = is_on_floor() # This must always be at the end of physics_process
 
 
 func handle_jumping():
@@ -336,22 +338,24 @@ func headbob_animation(moving):
 
 
 func _process(delta):
-	$UserInterface/DebugPanel.add_property("FPS", Performance.get_monitor(Performance.TIME_FPS), 0)
-	var status : String = state
-	if !is_on_floor():
-		status += " in the air"
-	$UserInterface/DebugPanel.add_property("State", status, 4)
-	
-	if pausing_enabled:
-		if Input.is_action_just_pressed(PAUSE):
-			match Input.mouse_mode:
-				Input.MOUSE_MODE_CAPTURED:
-					Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-				Input.MOUSE_MODE_VISIBLE:
-					Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	if is_multiplayer_authority():
+		$UserInterface/DebugPanel.add_property("FPS", Performance.get_monitor(Performance.TIME_FPS), 0)
+		var status : String = state
+		if !is_on_floor():
+			status += " in the air"
+		$UserInterface/DebugPanel.add_property("State", status, 4)
+		
+		if pausing_enabled:
+			if Input.is_action_just_pressed(PAUSE):
+				match Input.mouse_mode:
+					Input.MOUSE_MODE_CAPTURED:
+						Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+					Input.MOUSE_MODE_VISIBLE:
+						Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
 func _unhandled_input(event):
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		mouseInput.x += event.relative.x
-		mouseInput.y += event.relative.y
+	if is_multiplayer_authority():
+		if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			mouseInput.x += event.relative.x
+			mouseInput.y += event.relative.y

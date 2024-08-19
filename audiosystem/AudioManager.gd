@@ -38,4 +38,4 @@ func process_mic():
 			data[i] = value
 		if max_amplitude < input_threshold:
 			return
-		#print(data)
+		print(data)

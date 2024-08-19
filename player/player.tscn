@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3otenyph32m5"]
+
+[ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/character.tscn" id="1_3h5pt"]
+[ext_resource type="Script" path="res://player/Player.gd" id="1_6mpf4"]
+[ext_resource type="PackedScene" uid="uid://ch5nid8w2n1xe" path="res://test/audio_manager.tscn" id="2_3vj54"]
+[ext_resource type="Script" path="res://networking/MultiplayerController.gd" id="3_3vcei"]
+
+[node name="Player" type="Node3D"]
+script = ExtResource("1_6mpf4")
+
+[node name="Character" parent="." instance=ExtResource("1_3h5pt")]
+
+[node name="AudioManager" parent="Character" instance=ExtResource("2_3vj54")]
+
+[node name="MultiplayerController" type="Node" parent="." node_paths=PackedStringArray("player", "root")]
+script = ExtResource("3_3vcei")
+player = NodePath("../Character")
+root = NodePath("..")

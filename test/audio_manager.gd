@@ -11,7 +11,7 @@ var receiveBuffer := PackedFloat32Array()
 var fade := 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	setupAudio(1)
+	#setupAudio(1)
 	pass # Replace with function body.
 
 func setupAudio(id):
@@ -27,9 +27,9 @@ func setupAudio(id):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if is_multiplayer_authority():
-		processMic()
-	processVoice()
+	#if is_multiplayer_authority():
+	#	processMic()
+	#processVoice()
 	pass
 
 func processMic():
