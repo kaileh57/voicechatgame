@@ -19,7 +19,7 @@ func _on_host_pressed():
 	add_player()
 	#hide buttons and capture mouse
 	$CanvasLayer.hide()
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
 func _on_join_pressed():
@@ -46,7 +46,7 @@ func exit_game(id):
 
 func del_player(id):
 	#remotley delete the player from everyones game
-	rpc("_del_player", id)
+	_del_player.rpc(id)
 
 #let anyone call this and also call it here
 @rpc("any_peer","call_local")
